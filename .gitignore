@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### Other ###
+src/main/resources/credentials.json
+src/main/resources/application.yml
+gcp.secret

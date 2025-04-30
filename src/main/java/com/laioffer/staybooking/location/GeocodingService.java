@@ -1,16 +1,38 @@
 package com.laioffer.staybooking.location;
 
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
 import com.laioffer.staybooking.model.GeoPoint;
 import org.springframework.stereotype.Service;
 
 
+import java.io.IOException;
+
+
 @Service
 public class GeocodingService {
-// a class that transfer address to lat and lon
+
+
+    private final GeoApiContext context;
+
+
+    public GeocodingService(GeoApiContext context) {
+        this.context = context;
+    }
+
 
     public GeoPoint getGeoPoint(String address) {
-        // TODO: call Google Geocoding API to get geo point
-        return new GeoPoint(0, 0);
+        try {
+            GeocodingResult result = GeocodingApi.geocode(context, address).await()[0];
+            if (result.partialMatch) { // sometimes the geocoding api returns partial match, which is not allowed in our application
+                throw new InvalidAddressException();
+            }
+            return new GeoPoint(result.geometry.location.lat, result.geometry.location.lng);
+        } catch (IOException | ApiException | InterruptedException e) {
+            throw new GeocodingException();
+        }
     }
 }
