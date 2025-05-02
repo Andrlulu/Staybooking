@@ -27,3 +27,5 @@ staybooking:
     bucket: my-bucket
   geocoding:
     key: my-geocoding-key
+   jwt:
+    secret-key: my-jwt-key
