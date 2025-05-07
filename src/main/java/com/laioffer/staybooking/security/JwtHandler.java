@@ -16,7 +16,6 @@ import java.util.Date;
 @Component
 public class JwtHandler {
 
-
     final Key signingKey;
 
 
