@@ -1,4 +1,4 @@
-package com.laioffer.staybooking.security;
+package com.laioffer.staybooking;
 
 
 import jakarta.servlet.FilterChain;
